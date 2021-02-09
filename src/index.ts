@@ -1,3 +1,6 @@
+import fetch from "node-fetch";
+import { Currencies } from "./types/currencies";
+
 /**
  * Converts one currency to another.
  * @param fromCurrency The original currency
@@ -5,9 +8,6 @@
  * @param toCurrency The currency to convert to
  * @return An object containing the new currency and value
  */
-import fetch from "node-fetch";
-import { Currencies } from "./types/currencies";
-
 export function convert(
   fromCurrency: Currencies,
   amount: number,

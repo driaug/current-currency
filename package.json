@@ -1,6 +1,6 @@
 {
   "name": "current-currency",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
   "description": "Making it super easy to convert one currency to another!",
