@@ -1,2 +1,5 @@
-# ts-npm-template
-Quickstart a node module with TypeScript
+# current-currency
+Making it super easy to convert one currency to another
+```ts
+
+```

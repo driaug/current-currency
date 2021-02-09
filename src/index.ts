@@ -1,9 +1,27 @@
 /**
- * A highly complex function that adds two numbers together.
- * @param a The first number
- * @param b The second number
- * @return The two numbers added together
+ * Converts one currency to another.
+ * @param fromCurrency The original currency
+ * @param amount The amount of money in the original currency
+ * @param toCurrency The currency to convert to
+ * @return An object containing the new currency and value
  */
-export function add(a: number, b: number) {
-  return a + b;
+import fetch from "node-fetch";
+import { Currencies } from "./types/currencies";
+
+export function convert(
+  fromCurrency: Currencies,
+  amount: number,
+  toCurrency: Currencies
+): Promise<{ currency: Currencies; amount: number }> {
+  return new Promise((resolve, reject) => {
+    if (fromCurrency === toCurrency) {
+      reject("fromCurrency can't be the same toCurrency");
+    }
+
+    fetch(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
+      .then((res) => res.json())
+      .then((body) => {
+        resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
+      });
+  });
 }
