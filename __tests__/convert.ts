@@ -14,8 +14,16 @@ test("Convert MXN to GBP", () => {
   });
 });
 
-test("Convert EUR to EUR", () => {
+test("Do not convert unknown currency to EUR", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  convert("unknown currency", 10, "EUR").catch((err) => {
+    expect(err).toBe("Base 'unknown currency' is not supported.");
+  });
+});
+
+test("Do not convert EUR to EUR", () => {
   convert("EUR", 10, "EUR").catch((err) => {
-    expect(err).toBe("fromCurrency can't be the same toCurrency");
+    expect(err).toBe("fromCurrency can't be the same toCurrency.");
   });
 });

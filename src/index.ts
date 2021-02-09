@@ -15,12 +15,16 @@ export function convert(
 ): Promise<{ currency: Currencies; amount: number }> {
   return new Promise((resolve, reject) => {
     if (fromCurrency === toCurrency) {
-      reject("fromCurrency can't be the same toCurrency");
+      return reject("fromCurrency can't be the same toCurrency.");
     }
 
     fetch(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
       .then((res) => res.json())
       .then((body) => {
+        if (body.error) {
+          return reject(body.error);
+        }
+
         resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
       });
   });
