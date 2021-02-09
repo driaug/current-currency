@@ -1,7 +1,7 @@
 {
   "name": "current-currency",
-  "version": "1.0.0",
-  "repository": "https://github.com/alii/ts-npm-template",
+  "version": "1.0.2",
+  "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
   "license": "MIT",
   "scripts": {
