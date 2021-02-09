@@ -15,7 +15,7 @@ export function convert(
 ): Promise<{ currency: Currencies; amount: number }> {
   return new Promise((resolve, reject) => {
     if (fromCurrency === toCurrency) {
-      return reject("fromCurrency can't be the same toCurrency.");
+      return reject("fromCurrency cannot be the same as toCurrency.");
     }
 
     fetch(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
