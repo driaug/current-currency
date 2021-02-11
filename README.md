@@ -1,8 +1,9 @@
-# current-currency
-Making it easy to work with currencies!
+# current-currency 💵💶💷
+Making it easy to work with currencies! 
 
 ## Available functions
 ### convert
+Convert is used to get the current rate of a currency.
 #### Example
 ```ts
 import { convert } from "current-currency";
@@ -13,13 +14,14 @@ convert("EUR", 10.2, "USD").then(res => console.log(res));
 In the background we make use of https://exchangeratesapi.io/ to always have the current rates.
 
 ### addSymbol
+AddSymbol is used to add the right currency symbol in the right position using the ISO currency code.
 #### Example
 ```ts
 import { addSymbol } from "current-currency";
 
-const symbolized = addSymbol("USD", 10.2);
+const symbolized = addSymbol("RUB", 10.2);
 console.log(symbolized);
-// $10.2
+// ₽10.2
 ```
 
 #### Example with force position
@@ -30,6 +32,17 @@ const symbolized = addSymbol("USD", 10.2, "post");
 console.log(symbolized);
 // 10.2$
 ```
+### extract
+Extract is used to retrieve information about a currency using the ISO currency code.
+#### Example
+```ts
+import { extract } from "current-currency";
+
+const extraction = extract("10.2RUB");
+console.log(extraction);
+// { name: "Russian ruble", symbol: "₽", position: "pre" }
+```
+
 ## Supported currencies
 | Code | Name                 |
 |------|----------------------|

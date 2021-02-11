@@ -1,4 +1,5 @@
-import { Currencies, CurrencyCodes } from "../types/currencies";
+import { CurrencyCodes } from "../types/currencies";
+import { Currencies } from "../utils/currencies";
 
 /**
  * Adds the appropriate currency symbol
