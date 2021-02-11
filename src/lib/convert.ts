@@ -1,4 +1,4 @@
-import { CurrencyCodes } from "../types/currencies";
+import { Currency } from "../types/currencies";
 import fetch from "node-fetch";
 
 /**
@@ -9,10 +9,10 @@ import fetch from "node-fetch";
  * @return An object containing the new currency and value
  */
 export function convert(
-  fromCurrency: CurrencyCodes,
+  fromCurrency: Currency,
   amount: number,
-  toCurrency: CurrencyCodes
-): Promise<{ currency: CurrencyCodes; amount: number }> {
+  toCurrency: Currency
+): Promise<{ currency: Currency; amount: number }> {
   return new Promise((resolve, reject) => {
     if (fromCurrency === toCurrency) {
       return reject("fromCurrency cannot be the same as toCurrency.");

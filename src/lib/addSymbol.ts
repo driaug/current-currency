@@ -1,4 +1,4 @@
-import { CurrencyCodes } from "../types/currencies";
+import { Currency } from "../types/currencies";
 import { Currencies } from "../utils/currencies";
 
 /**
@@ -7,7 +7,7 @@ import { Currencies } from "../utils/currencies";
  * @param amount The amount of money
  * @param position Optional parameter to overwrite the position of the symbol
  */
-export function addSymbol(currency: CurrencyCodes, amount: number, position?: "pre" | "post") {
+export function addSymbol(currency: Currency, amount: number, position?: "pre" | "post") {
   if (position) {
     return position === "pre" ? Currencies[currency].symbol + amount : amount + Currencies[currency].symbol;
   }
