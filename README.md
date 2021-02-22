@@ -40,7 +40,7 @@ import { extract } from "current-currency";
 
 const extraction = extract("10.2RUB");
 console.log(extraction);
-// { name: "Russian ruble", symbol: "₽", position: "pre" }
+// { name: "Russian ruble", symbol: "₽", decimal: ",", position: "pre" }
 ```
 
 ## Supported currencies

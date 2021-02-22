@@ -40,6 +40,7 @@ export type CurrencyType = {
   [key in Currency]: {
     name: string;
     symbol: string;
+    decimal: string;
     position: "pre" | "post";
   };
 };
