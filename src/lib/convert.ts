@@ -55,6 +55,18 @@ export function convert(
 
           resolve({ currency: fromCurrencyAsUnion, amount: amount / body.data.rates[fromCurrency]});
         });
+    } else {
+      fetch(COINBASE_API_URL + `${ fromCurrency }`)
+        .then((res) => res.json())
+        .then((body) => {
+          if (body.error) {
+            return reject(body.error);
+          }
+
+          resolve({ currency: fromCurrencyAsUnion, amount: amount * body.data.rates[toCurrency]});
+        });
     }
+
   });
 }
+

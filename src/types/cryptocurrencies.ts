@@ -1,4 +1,4 @@
-import { Currency, CURRENCY_CODES } from "./currencies";
+import { Currency } from "./currencies";
 
 export function isCryptoCurrency(currency: Currency | CryptoCurrency): currency is CryptoCurrency {
   return CRYPTO_CURRENCY_CODES.includes(currency as CryptoCurrency);
