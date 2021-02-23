@@ -13,7 +13,6 @@ const COINBASE_API_URL = "https://api.coinbase.com/v2/exchange-rates?currency=";
  * @param toCurrency The currency to convert to
  * @return An object containing the new currency and value
  */
-// TODO: clean
 export function convert(
   fromCurrency: Currency | CryptoCurrency,
   amount: number,
@@ -35,8 +34,11 @@ export function convert(
 
           resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
         });
-    } else if (isCryptoCurrency(fromCurrency) && isCurrency(toCurrency)){
-      fetch( COINBASE_API_URL + `${ fromCurrency }`)
+    }
+
+    if (!(isCurrency(fromCurrency) && isCryptoCurrency(toCurrency))){
+
+      fetch(COINBASE_API_URL+ `${fromCurrency}`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
@@ -45,7 +47,9 @@ export function convert(
 
           resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
         });
+
     } else if (isCurrency(fromCurrency) && isCryptoCurrency(toCurrency)) {
+
       fetch(COINBASE_API_URL + `${ toCurrency }`)
         .then((res) => res.json())
         .then((body) => {
@@ -53,17 +57,7 @@ export function convert(
             return reject(body.error);
           }
 
-          resolve({ currency: fromCurrency, amount: amount / body.data.rates[fromCurrency]});
-        });
-    } else {
-      fetch(COINBASE_API_URL + `${ fromCurrency }`)
-        .then((res) => res.json())
-        .then((body) => {
-          if (body.error) {
-            return reject(body.error);
-          }
-
-          resolve({ currency: fromCurrency, amount: amount * body.data.rates[toCurrency]});
+          resolve({ currency: fromCurrency, amount: amount / body.data.rates[fromCurrency] });
         });
     }
 

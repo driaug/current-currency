@@ -28,11 +28,12 @@ test("Do not convert EUR to EUR", () => {
   });
 });
 
-test("Convert EUR to BTC",  () => {
+test("Convert EUR to BTC",   () => {
   convert("EUR", 40000, "BTC").then((result) => {
     expect(result).toHaveProperty("currency");
     expect(result).toHaveProperty("amount");
   });
+
 })
 
 test("Convert ETH to BTC",  () => {
