@@ -33,7 +33,13 @@ test("Convert EUR to BTC",   () => {
     expect(result).toHaveProperty("currency");
     expect(result).toHaveProperty("amount");
   });
+})
 
+test("Convert BTC to EUR", () => {
+  convert("BTC", 1, "EUR").then((result) => {
+    expect(result).toHaveProperty("currency");
+    expect(result).toHaveProperty("amount");
+  });
 })
 
 test("Convert ETH to BTC",  () => {

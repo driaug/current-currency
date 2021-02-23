@@ -3,7 +3,6 @@ import fetch from "node-fetch";
 import { CryptoCurrency, isCryptoCurrency } from "../types/cryptocurrencies";
 import { isCurrency } from "../utils/currencies";
 
-const EXCHANGERATES_API_URL = "https://api.exchangeratesapi.io/latest?base=";
 const COINBASE_API_URL = "https://api.coinbase.com/v2/exchange-rates?currency=";
 
 /**
@@ -25,7 +24,7 @@ export function convert(
     }
 
     if (isCurrency(fromCurrency) && isCurrency(toCurrency)) {
-      fetch(EXCHANGERATES_API_URL+ `${ fromCurrency }`)
+      fetch( `https://api.exchangeratesapi.io/latest?base=${ fromCurrency }`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
