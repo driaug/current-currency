@@ -28,9 +28,12 @@ test("Do not convert EUR to EUR", () => {
   });
 });
 
-test("Convert BTC to EUR", () => {
-  convert("BTC", 1, "EUR").then((result) => {
+test("Convert EUR to BTC", async () => {
+  const out = await convert("EUR", 40000, "BTC").then((result) => {
     expect(result).toHaveProperty("currency");
     expect(result).toHaveProperty("amount");
+    return result;
   });
+
+  console.log(out);
 })

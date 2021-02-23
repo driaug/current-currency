@@ -1,6 +1,7 @@
 import { Currency } from "../types/currencies";
 import fetch from "node-fetch";
-import { CRYPTO_CURRENCY_CODES, CryptoCurrency } from "../types/cryptocurrencies";
+import { CRYPTO_CURRENCY_CODES, CryptoCurrency, isCryptoCurrency } from "../types/cryptocurrencies";
+import { isCurrency } from "../utils/currencies";
 
 /**
  * Converts one currency to another.
@@ -9,6 +10,7 @@ import { CRYPTO_CURRENCY_CODES, CryptoCurrency } from "../types/cryptocurrencies
  * @param toCurrency The currency to convert to
  * @return An object containing the new currency and value
  */
+// TODO: clean
 export function convert(
   fromCurrency: Currency | CryptoCurrency,
   amount: number,
@@ -20,7 +22,7 @@ export function convert(
       return reject("fromCurrency cannot be the same as toCurrency.");
     }
 
-    if (!CRYPTO_CURRENCY_CODES.includes(fromCurrencyAsUnion)) {
+    if (isCurrency(fromCurrency) && isCurrency(toCurrency)) {
       fetch(`https://api.exchangeratesapi.io/latest?base=${ fromCurrency }`)
         .then((res) => res.json())
         .then((body) => {
@@ -30,7 +32,7 @@ export function convert(
 
           resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
         });
-    } else {
+    } else if (isCryptoCurrency(fromCurrency) && isCurrency(toCurrency)){
       fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${ fromCurrencyAsUnion }`)
         .then((res) => res.json())
         .then((body) => {
@@ -39,6 +41,16 @@ export function convert(
           }
 
           resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
+        });
+    } else if (isCurrency(fromCurrency) && isCryptoCurrency(toCurrency)) {
+      fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${ toCurrency }`)
+        .then((res) => res.json())
+        .then((body) => {
+          if (body.error) {
+            return reject(body.error);
+          }
+
+          resolve({ currency: fromCurrencyAsUnion, amount: body.data.rates[fromCurrency] / amount });
         });
     }
   });
