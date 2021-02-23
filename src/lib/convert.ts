@@ -1,7 +1,10 @@
 import { Currency } from "../types/currencies";
 import fetch from "node-fetch";
-import { CRYPTO_CURRENCY_CODES, CryptoCurrency, isCryptoCurrency } from "../types/cryptocurrencies";
+import { CryptoCurrency, isCryptoCurrency } from "../types/cryptocurrencies";
 import { isCurrency } from "../utils/currencies";
+
+const EXCHANGERATES_API_URL = "https://api.exchangeratesapi.io/latest?base=";
+const COINBASE_API_URL = "https://api.coinbase.com/v2/exchange-rates?currency=";
 
 /**
  * Converts one currency to another.
@@ -23,7 +26,7 @@ export function convert(
     }
 
     if (isCurrency(fromCurrency) && isCurrency(toCurrency)) {
-      fetch(`https://api.exchangeratesapi.io/latest?base=${ fromCurrency }`)
+      fetch(EXCHANGERATES_API_URL+ `${ fromCurrency }`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
@@ -33,7 +36,7 @@ export function convert(
           resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
         });
     } else if (isCryptoCurrency(fromCurrency) && isCurrency(toCurrency)){
-      fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${ fromCurrencyAsUnion }`)
+      fetch( COINBASE_API_URL + `${ fromCurrencyAsUnion }`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
@@ -43,14 +46,14 @@ export function convert(
           resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
         });
     } else if (isCurrency(fromCurrency) && isCryptoCurrency(toCurrency)) {
-      fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${ toCurrency }`)
+      fetch(COINBASE_API_URL + `${ toCurrency }`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
             return reject(body.error);
           }
 
-          resolve({ currency: fromCurrencyAsUnion, amount: body.data.rates[fromCurrency] / amount });
+          resolve({ currency: fromCurrencyAsUnion, amount: amount / body.data.rates[fromCurrency]});
         });
     }
   });
