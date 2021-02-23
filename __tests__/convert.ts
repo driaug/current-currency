@@ -28,10 +28,9 @@ test("Do not convert EUR to EUR", () => {
   });
 });
 
-test("Do not convert BTC to EUR", () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  convert("BTC", 10, "EUR").catch((err) => {
-    expect(err).toBe("Base 'BTC' is not supported.");
+test("Convert BTC to EUR", () => {
+  convert("BTC", 1, "EUR").then((result) => {
+    expect(result).toHaveProperty("currency");
+    expect(result).toHaveProperty("amount");
   });
-});
+})
