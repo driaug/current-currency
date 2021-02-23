@@ -1,9 +1,20 @@
 # current-currency 💵💶💷
 Making it easy to work with currencies and cryptos! 
 
+## Summary
+- [Getting Started](#getting-started)
+- [Available functions](#Available functions)
+- [Supported currencies](#Supported currencies)
+- [Supported cryptocurrencies](#Supported cryptocurrencies)
+
+## Getting Started
+Install current-currency with your favourite package manager.
+- `npm install current-currency`
+- `yarn add current-currency`
+
 ## Available functions
 ### convert
-Convert is used to get the current rate of a currency.
+Convert is used to get the current rates of a currency.
 #### Example
 ```ts
 import { convert } from "current-currency";
