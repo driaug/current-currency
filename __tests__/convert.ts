@@ -27,3 +27,11 @@ test("Do not convert EUR to EUR", () => {
     expect(err).toBe("fromCurrency cannot be the same as toCurrency.");
   });
 });
+
+test("Do not convert BTC to EUR", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  convert("BTC", 10, "EUR").catch((err) => {
+    expect(err).toBe("Base 'BTC' is not supported.");
+  });
+});

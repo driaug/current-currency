@@ -1,5 +1,7 @@
 import { Currency } from "../types/currencies";
-import { Currencies } from "../utils/currencies";
+import { Currencies, isCurrency } from "../utils/currencies";
+import { CryptoCurrency } from "../types/cryptocurrencies";
+import { Cryptocurrencies } from "../utils/cryptocurrencies";
 
 /**
  * Adds the appropriate currency symbol
@@ -7,12 +9,12 @@ import { Currencies } from "../utils/currencies";
  * @param amount The amount of money
  * @param position Optional parameter to overwrite the position of the symbol
  */
-export function addSymbol(currency: Currency, amount: number, position?: "pre" | "post") {
+export function addSymbol(currency: Currency | CryptoCurrency, amount: number, position?: "pre" | "post") {
+  const currencyDetail = isCurrency(currency) ? Currencies[currency] : Cryptocurrencies[currency];
+
   if (position) {
-    return position === "pre" ? Currencies[currency].symbol + amount : amount + Currencies[currency].symbol;
+    return position === "pre" ? currencyDetail.symbol + amount : amount + currencyDetail.symbol;
   }
 
-  return Currencies[currency].position === "pre"
-    ? Currencies[currency].symbol + amount
-    : amount + Currencies[currency].symbol;
+  return currencyDetail.position === "pre" ? currencyDetail.symbol + amount : amount + currencyDetail.symbol;
 }

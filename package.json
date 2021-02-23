@@ -1,10 +1,10 @@
 {
   "name": "current-currency",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
-  "description": "Making it easy to work with currencies!",
-  "keywords": ["currency", "conversion", "rates", "banking"],
+  "description": "Making it easy to work with currencies and cryptos!",
+  "keywords": ["currency", "conversion", "rates", "banking", "crypto"],
   "license": "MIT",
   "scripts": {
     "test": "eslint . --fix&&jest",

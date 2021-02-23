@@ -38,6 +38,7 @@ export type Currency = typeof CURRENCY_CODES[number];
 
 export type CurrencyType = {
   [key in Currency]: {
+    type: "currency";
     name: string;
     symbol: string;
     decimal: string;

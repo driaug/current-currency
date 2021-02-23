@@ -1,17 +1,15 @@
-import { extract } from "../src/lib/extract";
+import { extract } from "../src";
 
 test("Extract USD from string", () => {
-  const t = () => {
-    extract("10.2USD");
-  };
-  expect(t).toHaveProperty("name");
+  expect(extract("10.2USD")).toHaveProperty("name");
+});
+
+test("Extract BTC from string", () => {
+  expect(extract("10.2BTC")).toHaveProperty("name");
 });
 
 test("Extract misplaced RUB from string", () => {
-  const t = () => {
-    extract("RUB10.2");
-  };
-  expect(t).toHaveProperty("name");
+  expect(extract("RUB10.2")).toHaveProperty("name");
 });
 
 test("Do not extract unknown currency", () => {

@@ -1,5 +1,5 @@
 # current-currency 💵💶💷
-Making it easy to work with currencies! 
+Making it easy to work with currencies and cryptos! 
 
 ## Available functions
 ### convert
@@ -40,7 +40,7 @@ import { extract } from "current-currency";
 
 const extraction = extract("10.2RUB");
 console.log(extraction);
-// { name: "Russian ruble", symbol: "₽", decimal: ",", position: "pre" }
+// { type: "currency", name: "Russian ruble", symbol: "₽", decimal: ",", position: "pre" }
 ```
 
 ## Supported currencies
@@ -80,3 +80,11 @@ console.log(extraction);
 | KRW  | South Korean Won     |
 | MYR  | Malaysian Ringgit    | 
 
+## Supported cryptocurrencies
+| Code | Name                 |
+|------|----------------------|
+| BTC  | Bitcoin              |
+| ETH  | Ethereum             |
+| LTC  | Litecoin             |
+| XRP  | Ripple               |
+| DOGE | Dogecoin             |
