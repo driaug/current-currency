@@ -19,9 +19,9 @@ export function convert(
   amount: number,
   toCurrency: Currency | CryptoCurrency
 ): Promise<{ currency: Currency | CryptoCurrency; amount: number }> {
-  const fromCurrencyAsUnion = fromCurrency as Currency & CryptoCurrency;
   return new Promise((resolve, reject) => {
-    if (fromCurrencyAsUnion === toCurrency) {
+
+    if (fromCurrency === toCurrency) {
       return reject("fromCurrency cannot be the same as toCurrency.");
     }
 
@@ -36,7 +36,7 @@ export function convert(
           resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
         });
     } else if (isCryptoCurrency(fromCurrency) && isCurrency(toCurrency)){
-      fetch( COINBASE_API_URL + `${ fromCurrencyAsUnion }`)
+      fetch( COINBASE_API_URL + `${ fromCurrency }`)
         .then((res) => res.json())
         .then((body) => {
           if (body.error) {
@@ -53,7 +53,7 @@ export function convert(
             return reject(body.error);
           }
 
-          resolve({ currency: fromCurrencyAsUnion, amount: amount / body.data.rates[fromCurrency]});
+          resolve({ currency: fromCurrency, amount: amount / body.data.rates[fromCurrency]});
         });
     } else {
       fetch(COINBASE_API_URL + `${ fromCurrency }`)
@@ -63,7 +63,7 @@ export function convert(
             return reject(body.error);
           }
 
-          resolve({ currency: fromCurrencyAsUnion, amount: amount * body.data.rates[toCurrency]});
+          resolve({ currency: fromCurrency, amount: amount * body.data.rates[toCurrency]});
         });
     }
 
