@@ -3,9 +3,9 @@ Making it easy to work with currencies and cryptos!
 
 ## Summary
 - [Getting Started](#getting-started)
-- [Available functions](#Available functions)
-- [Supported currencies](#Supported currencies)
-- [Supported cryptocurrencies](#Supported cryptocurrencies)
+- [Available functions](#Available-functions)
+- [Supported currencies](#Supported-currencies)
+- [Supported cryptocurrencies](#Supported-cryptocurrencies)
 
 ## Getting Started
 Install current-currency with your favourite package manager.
