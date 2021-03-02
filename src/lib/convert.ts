@@ -1,9 +1,8 @@
 import { Currency } from "../types/currencies";
-import fetch from "node-fetch";
-import { CryptoCurrency, isCryptoCurrency } from "../types/cryptocurrencies";
+import axios from "axios";
 import { isCurrency } from "../utils/currencies";
-
-const COINBASE_API_URL = "https://api.coinbase.com/v2/exchange-rates?currency=";
+import { CryptoCurrency } from "../types/cryptocurrencies";
+import { isCryptoCurrency } from "../utils/cryptocurrencies";
 
 /**
  * Converts one currency to another.
@@ -18,48 +17,26 @@ export function convert(
   toCurrency: Currency | CryptoCurrency
 ): Promise<{ currency: Currency | CryptoCurrency; amount: number }> {
   return new Promise((resolve, reject) => {
-
-    if (fromCurrency === toCurrency) {
-      return reject("fromCurrency cannot be the same as toCurrency.");
-    }
-
     if (isCurrency(fromCurrency) && isCurrency(toCurrency)) {
-      fetch( `https://api.exchangeratesapi.io/latest?base=${ fromCurrency }`)
-        .then((res) => res.json())
+      axios
+        .get(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
         .then((body) => {
-          if (body.error) {
-            return reject(body.error);
-          }
-
-          resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
+          return resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
+        })
+        .catch((err) => {
+          return reject(err.response.data.error);
         });
+    } else if (isCryptoCurrency(fromCurrency) && isCryptoCurrency(toCurrency)) {
+      axios
+        .get(`https://api.coinbase.com/v2/exchange-rates?currency=${fromCurrency}`)
+        .then((body) => {
+          return resolve({ currency: toCurrency, amount: amount * body.data.data.rates[toCurrency] });
+        })
+        .catch((err) => {
+          return reject(err.response.data);
+        });
+    } else {
+      return reject(`Cannot convert ${fromCurrency} to ${toCurrency}`);
     }
-
-    if (!(isCurrency(fromCurrency) && isCryptoCurrency(toCurrency))){
-
-      fetch(COINBASE_API_URL+ `${fromCurrency}`)
-        .then((res) => res.json())
-        .then((body) => {
-          if (body.error) {
-            return reject(body.error);
-          }
-
-          resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
-        });
-
-    } else if (isCurrency(fromCurrency) && isCryptoCurrency(toCurrency)) {
-
-      fetch(COINBASE_API_URL + `${ toCurrency }`)
-        .then((res) => res.json())
-        .then((body) => {
-          if (body.error) {
-            return reject(body.error);
-          }
-
-          resolve({ currency: fromCurrency, amount: amount / body.data.rates[fromCurrency] });
-        });
-    }
-
   });
 }
-

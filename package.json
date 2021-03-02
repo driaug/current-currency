@@ -1,10 +1,16 @@
 {
   "name": "current-currency",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
   "description": "Making it easy to work with currencies and cryptos!",
-  "keywords": ["currency", "conversion", "rates", "banking", "crypto"],
+  "keywords": [
+    "currency",
+    "conversion",
+    "rates",
+    "banking",
+    "crypto"
+  ],
   "license": "MIT",
   "scripts": {
     "test": "eslint . --fix&&jest",
@@ -14,7 +20,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
-    "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "eslint": "^7.17.0",
@@ -32,7 +37,7 @@
     "printWidth": 120
   },
   "dependencies": {
-    "tslib": "^2.1.0",
-    "node-fetch": "^2.6.1"
+    "axios": "^0.21.1",
+    "tslib": "^2.1.0"
   }
 }
