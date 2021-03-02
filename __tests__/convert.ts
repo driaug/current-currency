@@ -22,9 +22,10 @@ test("Do not convert unknown currency to EUR", () => {
   });
 });
 
-test("Do not convert EUR to EUR", () => {
-  convert("EUR", 10, "EUR").catch((err) => {
-    expect(err).toBe("fromCurrency cannot be the same as toCurrency.");
+test("Convert EUR to EUR", () => {
+  convert("EUR", 10, "EUR").then((result) => {
+    expect(result).toHaveProperty("currency");
+    expect(result).toHaveProperty("amount");
   });
 });
 

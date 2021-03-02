@@ -1,5 +1,5 @@
 import { Currency } from "../types/currencies";
-import fetch from "isomorphic-unfetch";
+import axios from "axios";
 
 /**
  * Converts one currency to another.
@@ -14,18 +14,13 @@ export function convert(
   toCurrency: Currency
 ): Promise<{ currency: Currency; amount: number }> {
   return new Promise((resolve, reject) => {
-    if (fromCurrency === toCurrency) {
-      return reject("fromCurrency cannot be the same as toCurrency.");
-    }
-
-    fetch(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
-      .then((res) => res.json())
+    axios
+      .get(`https://api.exchangeratesapi.io/latest?base=${fromCurrency}`)
       .then((body) => {
-        if (body.error) {
-          return reject(body.error);
-        }
-
-        resolve({ currency: toCurrency, amount: amount * body.rates[toCurrency] });
+        return resolve({ currency: toCurrency, amount: amount * body.data.rates[toCurrency] });
+      })
+      .catch((err) => {
+        return reject(err.response.data.error);
       });
   });
 }
