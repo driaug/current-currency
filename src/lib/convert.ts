@@ -1,5 +1,5 @@
 import { Currency } from "../types/currencies";
-import fetch from "node-fetch";
+import fetch from "isomorphic-unfetch";
 
 /**
  * Converts one currency to another.
