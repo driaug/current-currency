@@ -1,4 +1,4 @@
-export const CRYPTO_CURRENCY_CODES = ["BTC", "ETH", "LTC", "XRP", "DOGE"] as const;
+export const CRYPTO_CURRENCY_CODES = ["BTC", "ETH", "LTC"] as const;
 
 export type CryptoCurrency = typeof CRYPTO_CURRENCY_CODES[number];
 
