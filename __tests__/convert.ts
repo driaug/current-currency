@@ -16,7 +16,7 @@ test("Do not convert unknown currency to EUR", () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   convert("unknown currency", 10, "EUR").catch((err) => {
-    expect(err).toBe("Invalid Currency (UNKNOWN CURRENCY)");
+    expect(err.toString().toUpperCase()).toBe("Invalid Currency (UNKNOWN CURRENCY)".toUpperCase());
   });
 });
 
