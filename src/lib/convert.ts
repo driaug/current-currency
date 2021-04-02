@@ -1,8 +1,6 @@
 import { Currency } from "../types/currencies";
 import axios from "axios";
-import { isCurrency } from "../utils/currencies";
 import { CryptoCurrency } from "../types/cryptocurrencies";
-import { isCryptoCurrency } from "../utils/cryptocurrencies";
 
 /**
  * Converts one currency to another.
