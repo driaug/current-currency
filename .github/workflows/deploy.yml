@@ -1,8 +1,6 @@
 name: 'Deploy'
 on:
   push:
-    paths:
-      - '/'
     branches:
       - main
 jobs:
@@ -15,4 +13,4 @@ jobs:
       - name: Run tests
         run: yarn test
       - name: Deploy
-        run: yarn publish
+        run: yarn deploy
