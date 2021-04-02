@@ -17,14 +17,15 @@ export function convert(
   toCurrency: Currency | CryptoCurrency
 ): Promise<{ currency: Currency | CryptoCurrency; amount: number }> {
   return new Promise((resolve, reject) => {
-    if (!isCurrency(fromCurrency) && !isCurrency(toCurrency) && !isCryptoCurrency(fromCurrency) && !isCryptoCurrency(toCurrency)) {
-      return reject(`Cannot convert ${fromCurrency} to ${toCurrency}`);
-    } else {
+      if (fromCurrency === toCurrency) {
+        return reject("fromCurrency cannot be the same as toCurrency");
+      }
       axios
         .get(`https://api.coinbase.com/v2/exchange-rates?currency=${ fromCurrency }`)
         .then((body) => {
           return resolve({ currency:  toCurrency, amount: amount * body.data.data.rates[toCurrency]})
-        });
-    }
+        }).catch((err) => {
+          return reject(err.response.data.errors[0].message);
+      })
   });
 }
