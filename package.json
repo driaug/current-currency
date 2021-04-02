@@ -1,6 +1,6 @@
 {
   "name": "current-currency",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
   "description": "Making it easy to work with currencies and cryptos!",
@@ -15,6 +15,7 @@
   "scripts": {
     "test": "eslint . --fix&&jest",
     "prepublishOnly": "npm run test&&npm run build",
+    "publish": "npm publish --access public",
     "build": "tsc"
   },
   "main": "dist/index.js",
