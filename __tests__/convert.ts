@@ -32,8 +32,8 @@ test("Convert USD to ETH", async () => {
   expect(conversion).toHaveProperty("amount");
 });
 
-test("Convert BTC to USD", async () => {
-  const conversion = await convert("BTC", 1, "USD");
+test("Convert NANO to USD", async () => {
+  const conversion = await convert("NANO", 1, "USD");
   expect(conversion).toHaveProperty("currency");
   expect(conversion).toHaveProperty("amount");
 })
