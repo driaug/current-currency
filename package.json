@@ -1,6 +1,6 @@
 {
   "name": "current-currency",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "repository": "https://github.com/driaug/current-currency",
   "author": "Dries Augustyns <inbox@driaug.com>",
   "description": "Making it easy to work with currencies and cryptos!",
